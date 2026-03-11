@@ -1,0 +1,4 @@
+# Environment variables for local development
+# Copy this file to .dev.vars and fill in your values
+
+# Database (D1 will be automatically bound in wrangler.toml)

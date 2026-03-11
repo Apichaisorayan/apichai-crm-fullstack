@@ -1,0 +1,22 @@
+{
+  "name": "apichai-backend",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev --env dev",
+    "dev:qa": "wrangler dev --env qa --port 8788",
+    "deploy": "wrangler deploy",
+    "db:init": "wrangler d1 execute apichai-crm-local --env dev --local --file=./migrations/000_create_users_table.sql && wrangler d1 execute apichai-crm-local --env dev --local --file=./migrations/001_create_services_tables.sql && wrangler d1 execute apichai-crm-local --env dev --local --file=./migrations/002_seed_services_data.sql && wrangler d1 execute apichai-crm-local --env dev --local --file=./migrations/003_add_th_doctors_for_fat_graft.sql && wrangler d1 execute apichai-crm-local --env dev --local --file=./migrations/004_fix_display_order.sql && wrangler d1 execute apichai-crm-local --env dev --local --file=./migrations/005_create_customers_table.sql && wrangler d1 execute apichai-crm-local --env dev --local --file=./migrations/006_seed_initial_users.sql && wrangler d1 execute apichai-crm-local --env dev --local --file=./migrations/007_seed_dummy_customers.sql",
+    "db:init:qa": "wrangler d1 execute apichai-crm-qa --env qa --local --command='CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, email TEXT, role TEXT, status TEXT, country TEXT, caseType TEXT, queueOrder INTEGER, serviceIds TEXT, avatar TEXT, createdAt TEXT, updatedAt TEXT); CREATE TABLE IF NOT EXISTS services (id INTEGER PRIMARY KEY AUTOINCREMENT, code TEXT, name TEXT, category TEXT, isActive BOOLEAN, displayOrder INTEGER, createdAt TEXT, updatedAt TEXT); CREATE TABLE IF NOT EXISTS service_doctors (id INTEGER PRIMARY KEY AUTOINCREMENT, serviceId INTEGER, doctorName TEXT, isActive BOOLEAN, displayOrder INTEGER, createdAt TEXT, updatedAt TEXT); CREATE TABLE IF NOT EXISTS customers (id INTEGER PRIMARY KEY AUTOINCREMENT, customerId TEXT, displayName TEXT, phone TEXT, email TEXT, lineId TEXT, lineUid TEXT, country TEXT, platform TEXT, source TEXT, serviceInterest TEXT, lifecycleStage TEXT, isUQL TEXT, isMQL TEXT, isSQL TEXT, mqlToSqlDays TEXT, closeWonMonth TEXT, revenueWeight TEXT, assignedSales TEXT, status TEXT, reasonLost TEXT, assignedDoctor TEXT, remark TEXT, notes TEXT, isInactive BOOLEAN, month INTEGER, createdAt TEXT, updatedAt TEXT, importOrder INTEGER);'",
+    "db:migrate:prod": "wrangler d1 execute apichai-crm-prod --remote --file=./migrations/000_create_users_table.sql && wrangler d1 execute apichai-crm-prod --remote --file=./migrations/001_create_services_tables.sql && wrangler d1 execute apichai-crm-prod --remote --file=./migrations/002_seed_services_data.sql && wrangler d1 execute apichai-crm-prod --remote --file=./migrations/003_add_th_doctors_for_fat_graft.sql && wrangler d1 execute apichai-crm-prod --remote --file=./migrations/004_fix_display_order.sql && wrangler d1 execute apichai-crm-prod --remote --file=./migrations/005_create_customers_table.sql && wrangler d1 execute apichai-crm-prod --remote --file=./migrations/006_seed_initial_users.sql && wrangler d1 execute apichai-crm-prod --remote --file=./migrations/007_seed_dummy_customers.sql",
+    "db:reset": "wrangler d1 execute apichai-crm-local --env dev --local --command='DROP TABLE IF EXISTS customers; DROP TABLE IF EXISTS service_doctors; DROP TABLE IF EXISTS services; DROP TABLE IF EXISTS users;' && npm run db:init",
+    "db:reset:qa": "wrangler d1 execute apichai-crm-qa --env qa --local --command='DROP TABLE IF EXISTS customers; DROP TABLE IF EXISTS service_doctors; DROP TABLE IF EXISTS services; DROP TABLE IF EXISTS users;' && npm run db:init:qa"
+  },
+  "dependencies": {
+    "hono": "^4.0.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240117.0",
+    "wrangler": "^3.22.0"
+  }
+}
