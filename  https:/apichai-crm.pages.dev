@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Upload build folder to Cloudflare Pages manually
+echo "📦 Preparing to upload frontend to Cloudflare Pages..."
+
+# Check if build folder exists
+if [ ! -d "client/build" ]; then
+    echo "❌ Build folder not found. Building first..."
+    cd client && npm run build && cd ..
+fi
+
+# Create a zip file
+echo "📁 Creating zip file..."
+cd client/build
+zip -r ../../frontend-build.zip .
+cd ../..
+
+echo "✅ Frontend build ready at: frontend-build.zip"
+echo ""
+echo "📋 Next steps:"
+echo "1. Go to https://dash.cloudflare.com/pages"
+echo "2. Select project 'apichai-crm'"
+echo "3. Click 'Upload assets'"
+echo "4. Upload 'frontend-build.zip'"
+echo "5. Deploy"
+echo ""
+echo "🔗 After deployment: https://apichai-crm.pages.dev"
