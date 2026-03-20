@@ -7,7 +7,7 @@ compatibility_date = "2024-01-01"
 [[d1_databases]]
 binding = "DB"
 database_name = "apichai-crm-prod"
-database_id = "2e4f9fcd-9c3a-49c2-9fa9-8808ea80ca84"
+# database_id should be set via environment variable or wrangler CLI
 
 # Development Environment (ใช้เมื่อ run local dev)
 [env.dev]
@@ -19,7 +19,7 @@ database_id = "2e4f9fcd-9c3a-49c2-9fa9-8808ea80ca84"
 [[env.dev.d1_databases]]
 binding = "DB"
 database_name = "apichai-crm-local"
-database_id = "371370af-5844-488b-a68d-bc898161416b" # ใช้ database_id จริงของ local
+# database_id should be set via environment variable or wrangler CLI
 
 # QA Environment (ใช้สำหรับทดสอบแยกจาก production)
 [env.qa]
@@ -27,4 +27,4 @@ database_id = "371370af-5844-488b-a68d-bc898161416b" # ใช้ database_id จ
 [[env.qa.d1_databases]]
 binding = "DB"
 database_name = "apichai-crm-qa"
-database_id = "local-qa-database-id"
+# database_id should be set via environment variable or wrangler CLI
