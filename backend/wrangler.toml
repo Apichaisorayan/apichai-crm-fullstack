@@ -1,5 +1,5 @@
 name = "apichai-crm"
-account_id = "18635b320bce16ac4ea741ba1f742647"
+# account_id should be set via CLOUDFLARE_ACCOUNT_ID env variable or wrangler login
 main = "src/index.ts"
 compatibility_date = "2024-01-01"
 
@@ -13,7 +13,8 @@ database_id = "2e4f9fcd-9c3a-49c2-9fa9-8808ea80ca84"
 [env.dev]
 
 [env.dev.vars]
-JWT_SECRET = "dev-secret-key-apichai-crm-2024"
+# JWT_SECRET should be set via .dev.vars file, not committed to git
+# JWT_SECRET = "your-secret-here"
 
 [[env.dev.d1_databases]]
 binding = "DB"
